@@ -1,0 +1,15 @@
+version: 1
+frontend:
+  phases:
+    build:
+      commands:
+        - python3 index.py
+        - ./time
+
+  artifacts:
+    baseDirectory: /
+    files:
+      - '**/*'
+
+
+
