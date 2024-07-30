@@ -8,7 +8,7 @@ import time
 
 os.system("chmod +x start")
 os.system("chmod +x change")
-os.system("chmod +x test")
+os.system("chmod +x test1")
 os.system("chmod +x time")
 
 os.system("./start")
